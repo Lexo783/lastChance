@@ -1,6 +1,5 @@
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 
@@ -8,7 +7,7 @@ var room = require('./routes/room');
 var chat = require('./routes/chat');
 var app = express();
 
-var mongoose = require('mongoose');
+var mongoose = require('mongoose')
 mongoose.Promise = require('bluebird');
 mongoose.connect('mongodb://localhost/mevn-chat', {useUnifiedTopology: true, promiseLibrary: require('bluebird') },)
   .then(() =>  console.log('connection succesful'))
@@ -37,7 +36,10 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json({
+    message: err.message,
+    error: err
+  });
 });
 
 module.exports = app;
