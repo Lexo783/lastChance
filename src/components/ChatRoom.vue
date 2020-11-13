@@ -4,7 +4,7 @@
       <h2>
         Chat Room
       </h2>
-      <b-list-group class="panel-body" v-chat-scroll>
+      <b-list-group class="panel-body">
         <b-list-group-item v-for="(item, index) in chats" class="chat">
           <div class="left clearfix" v-if="item.nickname === nickname">
             <b-img left src="http://placehold.it/50/55C1E7/fff&text=ME" rounded="circle" width="75" height="75" alt="img" class="m-1" />
@@ -61,7 +61,7 @@ export default {
       errors: [],
       nickname: this.$route.params.nickname,
       chat: {},
-      socket: io('http://localhost:3000')
+      socket: io('http://localhost:4000')
     }
   },
   created () {
@@ -99,6 +99,21 @@ export default {
           this.errors.push(e)
         })
     }
+  },
+  onSubmit (evt) {
+    evt.preventDefault()
+    this.chat.room = this.$route.params.id
+    this.chat.nickname = this.$route.params.nickname
+    axios.post(`http://localhost:3000/api/chat`, this.chat)
+      .then(response => {
+        // this.$router.push({
+        //   name: 'ChatRoom',
+        //   params: { id: this.$route.params.id, nickname: response.data.nickname }
+        // })
+      })
+      .catch(e => {
+        this.errors.push(e)
+      })
   }
 }
 </script>
