@@ -6,9 +6,9 @@
         <b-link href="#/add-room">(Add Room)</b-link>
       </h2>
       <b-table striped hover :items="rooms" :fields="fields">
-        <template slot="actions" scope="row">
-          <b-btn size="sm" @click.stop="join(row._id)">Join</b-btn>
-        </template>
+        <div scope="row">
+          <b-btn size="sm" v-on:click.stop="join(row._id)">Join</b-btn>
+        </div>
       </b-table>
       <ul v-if="errors && errors.length">
         <li v-for="error of errors">

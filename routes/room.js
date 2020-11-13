@@ -22,6 +22,8 @@ router.get('/:id', function (req, res, next) {
 /* SAVE ROOM */
 router.post('/', function (req, res, next) {
   Room.create(req.body, function (err, post) {
+    console.log(err)
+    console.log(post)
     if (err) return next(err)
     res.json(post)
   });
