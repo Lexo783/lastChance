@@ -92,7 +92,6 @@ export default {
       this.chat.nickname = this.$route.params.nickname
       axios.post(`http://localhost:3000/api/chat`, this.chat)
       .then(response => {
-        this.socket.emit('save-message', response.data)
         this.chat.message = ''
       })
       .catch(e => {

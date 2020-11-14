@@ -16,7 +16,7 @@ io.on('connection', function (socket) {
   });
   socket.on('save-message', function (data) {
     console.log(data);
-    io.emit('new-message', { message: data });
+
   });
 });
 
@@ -38,6 +38,7 @@ router.get('/:id', function(req, res, next) {
 
 /* SAVE CHAT */
 router.post('/', function(req, res, next) {
+  io.emit('new-message', { message: req.body });
   Chat.create(req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);
